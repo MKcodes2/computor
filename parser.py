@@ -48,7 +48,7 @@ def parse_side(side: str) -> dict[int, float]:
 		side = side[1:]
 	# 3) split the side terms by the +:
 	side_terms = side.split("+")
-	poly_dict: dict[int, float] = {}
+	side_poly: dict[int, float] = {}
 	for term in side_terms:
 		if term == "":
 			# for something like "++" or trailing "+"
@@ -57,9 +57,9 @@ def parse_side(side: str) -> dict[int, float]:
 		coef, power = parse_term(term)  # <-- tuple unpacking
 
 		# 4) accumulate by power (the user might give multiple entries for same X^P)
-		poly_dict[power] = poly_dict.get(power, 0.0) + coef
+		side_poly[power] = side_poly.get(power, 0.0) + coef
 
-	return poly_dict
+	return side_poly
 
 
 def parse_equation(equation: str) -> tuple[dict[int, float], dict[int, float]]:
