@@ -15,11 +15,10 @@ def main():
 		left_dict, right_dict = parse_equation(sys.argv[1])
 		reduced_dict = reduce_polynomial(left_dict, right_dict)
 		print("Reduced form:", format_reduced_form(reduced_dict))
-		solve_polynomial(reduced_dict)   # solver prints degree + solutions/messages
+		solve_polynomial(reduced_dict) # solver prints degree + solutions/messages
 	except ValueError as e:
 		print(f"Error: {e}", file=sys.stderr)
 		sys.exit(1)
-	
 
 # my guard to say "Only run this when this file is the program entry point.”
 # this way I avoid accidental execution if i ever do import computor in another file
