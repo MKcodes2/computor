@@ -2,6 +2,7 @@
 
 import sys
 from parser import parse_equation
+from reducer import reduce_polynomial
 
 def main():
 
@@ -10,9 +11,9 @@ def main():
 		sys.exit(1)
 
 	try:
-		side_polys = parse_equation(sys.argv[1])
-		for poly in side_polys:
-			print(poly)
+		left_dict, right_dict = parse_equation(sys.argv[1])
+		reduced_dict = reduce_polynomial(left_dict, right_dict)
+		# print("Reduced form:", format_reduced_form(reduced_dict))
 	except ValueError as e:
 		print(f"Error: {e}", file=sys.stderr)
 		sys.exit(1)

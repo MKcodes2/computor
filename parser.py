@@ -71,7 +71,7 @@ def parse_equation(equation: str) -> tuple[dict[int, float], dict[int, float]]:
 	if len(sides) != 2:
 		raise ValueError("Equation must contain exactly one '='.")
 	
-	polys: list[dict[int, float]] = [] # one list to save the left side dictionary and right side dictionary
+	side_dicts: list[dict[int, float]] = [] # one list to save the left side dictionary and right side dictionary
 
 	for side in sides:
 		side = side.strip()
@@ -80,9 +80,9 @@ def parse_equation(equation: str) -> tuple[dict[int, float], dict[int, float]]:
 			raise ValueError("One side is missing from the equation")
 		if "^-" in side:
 			raise ValueError("Only positive integer exponents expected")
-		polys.append(parse_side(side))
+		side_dicts.append(parse_side(side))
 
 	# unpacks explicitly the two dictionaries 
-	left_poly, right_poly = polys
+	left_dict, right_dict = side_dicts
 
-	return left_poly, right_poly
+	return left_dict, right_dict
