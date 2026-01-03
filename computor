@@ -10,7 +10,9 @@ def main():
 		sys.exit(1)
 
 	try:
-		parse_equation(sys.argv[1])
+		side_polys = parse_equation(sys.argv[1])
+		for poly in side_polys:
+			print(poly)
 	except ValueError as e:
 		print(f"Error: {e}", file=sys.stderr)
 		sys.exit(1)
