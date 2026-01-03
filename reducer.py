@@ -16,6 +16,8 @@ def reduce_polynomial(left: dict[int, float],
 def format_reduced_form(poly: dict[int, float]) -> str:
 	# Sorts by power ascending: X^0, X^1, X^2... (what the subject wants)
 	items = sorted(poly.items(), key=lambda kv: kv[0]) # which is like saying “For each (power, coefficient) tuple, sort by power."
+	# items = sorted(poly.items(), key=lambda kv: kv[0], reverse=True) # that would make more sense actually, but the pdf doesn't agree i guess
+
 	#will never be met currently, but just in case i change anything in the future:
 	if not items:
 		return "0 = 0"
