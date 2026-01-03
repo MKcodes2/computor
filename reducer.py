@@ -20,18 +20,18 @@ def format_reduced_form(poly: dict[int, float]) -> str:
 	if not items:
 		return "0 = 0"
 	
-	parts: list[str] = [] #empty list, but annotates that is intended to contain strings
+	result = ""
 
 	for i, (power, coef) in enumerate(items):
-		# I would normally do this too, but pdf doesn't want it -_-
+		# I would normally do this too for the reduced form, but pdf doesn't want it -_-
 		# if coef == 0.0:
 		# 	continue
 
 		# First term prints sign only if negative
 		if i == 0:
-			parts.append(f"{coef:g} * X^{power}") # :g is the format specifier for the 5.000 to be written simply as 5 for example
+			result += f"{coef:g} * X^{power}"# :g is the format specifier for the 5.000 to be written simply as 5 for example
 		else:
 			sign = "+" if coef >= 0 else "-"
-			parts.append(f"{sign} {abs(coef):g} * X^{power}")
+			result += f" {sign} {abs(coef):g} * X^{power}"
 
-	return " ".join(parts) + " = 0"
+	return result + " = 0"
