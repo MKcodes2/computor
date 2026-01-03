@@ -1,3 +1,5 @@
+EPS = 1e-12
+
 def sqrt_newton(num: float) -> float:
 
 	if num == 0.0:
@@ -15,7 +17,7 @@ def sqrt_newton(num: float) -> float:
 	#newton's method coverges quickly.(~10 iterations -> very good precision, 100 is a bit of overkill, but i guess okay)
 	for _ in range(100):
 		new_guess = 0.5 * (guess + (num / guess))
-		if abs(new_guess - guess) < 1e-12: # without EPS i would loop forever cause floats never become exact
+		if abs(new_guess - guess) < EPS: # without EPS i would loop forever cause floats never become exact
 			return new_guess
 		guess = new_guess
 
@@ -72,8 +74,27 @@ def solve_polynomial(poly: dict[int, float]):
 
 	# for the `ax^2 + bx + c = 0` scenarios, aka "a * X^2 + b * X^1 + c * X^0 = 0"
 	if degree == 2:
-		a = poly[2]
+		a = poly[2] # non-zero when degree == 2
 		b = poly.get(1, 0.0)
 		c = poly.get(0, 0.0)
 
-	print(sqrt_newton(144))
+		delta = b * b - 4.0 * a * c
+
+		if delta > EPS:
+			print("Discriminant is strictly positive, the two solutions are:")
+			sqrt_d = sqrt_newton(delta)
+			x1 = (-b + sqrt_d) / (2.0 * a)
+			x2 = (-b - sqrt_d) / (2.0 * a)
+			print(x1)
+			print(x2)
+			return
+
+		if delta <= EPS: # meaning if it's zero
+			print("Discriminant is zero, the solution is:")
+			x = (-b) / (2.0 * a)
+			print(x)
+			return
+
+
+
+
