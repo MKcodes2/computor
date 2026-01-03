@@ -9,7 +9,11 @@ def main():
 		print("❗️ Program expects input in this format: ./computor \"equation\"")
 		sys.exit(1)
 
-	parse_equation(sys.argv[1])
+	try:
+		parse_equation(sys.argv[1])
+	except ValueError as e:
+		print(f"Error: {e}", file=sys.stderr)
+		sys.exit(1)
 	
 
 # my guard to say "Only run this when this file is the program entry point.”
