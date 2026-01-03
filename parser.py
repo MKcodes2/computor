@@ -45,8 +45,8 @@ def parse_side(side: str) -> dict[int, float]:
 	side = side.replace(" ", "")
 	# 2) we convert the format "a - b + c - d" to "a + -b + c + -d"
 	side = side.replace("-", "+-")
-	# 2b) fix the edge case of the beginning with "-"
-	if side.startswith("+-"):
+	# 2b) fix the edge case of the beginning with "+" so that i don't get the empty terms
+	if side.startswith("+-") or side.startswith("+"):
 		side = side[1:]
 	# 3) split the side terms by the +:
 	side_terms = side.split("+")
@@ -75,5 +75,7 @@ def parse_equation(equation: str):
 		print("side:", side, "$")
 		if side is None or side == "":
 			raise ValueError("One side is missing from the equation")
+		if "^-" in side:
+			raise ValueError("Only positive integer exponents expected")
 		poly_dict = parse_side(side)
 	
