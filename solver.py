@@ -34,6 +34,17 @@ def sqrt_newton(num: float) -> float:
 # new = 3.0
 #
 
+
+def format_x(x: float) -> str:
+	"""
+	Subject shows 6 decimals in examples.
+	Also I want to avoid "-0.000000".
+	"""
+	if abs(x) < EPS:
+		x = 0.0
+	return f"{x:.6f}".rstrip("0").rstrip(".") #formats for 6 digits after the decimal point, then it removes trailing zeros, and lastly removes trailing '.'
+
+
 def polynomial_degree(poly: dict[int, float]) -> int:
 
 	degree = 0
@@ -69,7 +80,7 @@ def solve_polynomial(poly: dict[int, float]):
 
 		x = -c / b
 		print("The solution is:")
-		print(x)
+		print(format_x(x))
 		return
 
 	# for the `ax^2 + bx + c = 0` scenarios, aka "a * X^2 + b * X^1 + c * X^0 = 0"
@@ -85,16 +96,29 @@ def solve_polynomial(poly: dict[int, float]):
 			sqrt_d = sqrt_newton(delta)
 			x1 = (-b + sqrt_d) / (2.0 * a)
 			x2 = (-b - sqrt_d) / (2.0 * a)
-			print(x1)
-			print(x2)
+			print(format_x(x1))
+			print(format_x(x2))
 			return
 
-		if delta <= EPS: # meaning if it's zero
+		if abs(delta) <= EPS: # meaning if it's zero ("anything extremely close to 0")
 			print("Discriminant is zero, the solution is:")
 			x = (-b) / (2.0 * a)
 			print(x)
 			return
 
+		if delta < 0.0:
+			print("Discriminant is strictly negative, the two complex solutions are:")
+			sqrt_d_abs = sqrt_newton(-delta)
+			real_part = (-b) / (2.0 * a)
+			imag_part = sqrt_d_abs / (2.0 * a)
+
+			# prints the two solutions: real_part ± imag_part*i
+			print(f"{format_x(real_part)} + {format_x(abs(imag_part))} * i")
+			print(f"{format_x(real_part)} - {format_x(abs(imag_part))} * i")
+
+			#the non-formatted output:
+			# print(f"{real_part} + {abs(imag_part)} * i")
+			# print(f"{real_part} - {abs(imag_part)} * i")
 
 
 
