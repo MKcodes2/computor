@@ -11,4 +11,18 @@ def polynomial_degree(poly: dict[int, float]) -> int:
 
 def solve_polynomial(poly: dict[int, float]):
 
-	print("Polynomial degree:", polynomial_degree(poly))
+	degree = polynomial_degree(poly)
+	print(f"Polynomial degree: {degree}")
+
+	if degree > 2:
+		print("The polynomial degree is strictly greater than 2, I can't solve.")
+		return
+
+	# to handle input like "42*X^0 = 42*X^0", "21*X^2 = 21*X^2" or "42*X^0 = 43*X^0"
+	if degree == 0:
+		if poly.get(0, 0.0) == 0.0:
+			print("All real number are solutions")
+		else:
+			print("No solution")
+		return
+		
