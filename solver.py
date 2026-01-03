@@ -9,6 +9,14 @@ def polynomial_degree(poly: dict[int, float]) -> int:
 	return degree
 
 
+def solve_degree_one(poly: dict[int, float]):
+	"""
+	Solves the `bx + c = 0` scenarios
+	equivalent to: b * X^1 + c * X^0 = 0
+	"""
+	b = poly.get(1, 0.0)
+	c = poly.get(0, 0.0)
+
 def solve_polynomial(poly: dict[int, float]):
 
 	degree = polynomial_degree(poly)
@@ -25,4 +33,13 @@ def solve_polynomial(poly: dict[int, float]):
 		else:
 			print("No solution")
 		return
-		
+	
+	# for the `bx + c = 0` scenarios, aka "b * X^1 + c * X^0 = 0"
+	if degree == 1:
+		b = poly[1]
+		c = poly.get(0, 0.0)
+
+		x = -c / b
+		print("The solution is:")
+		print(x)
+		return
