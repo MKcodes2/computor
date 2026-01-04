@@ -1,3 +1,5 @@
+from utils import *
+
 def normalize_poly(poly: dict[int, float]) -> dict[int, float]:
 	"""
 	I use the EPS to handle extreme cases like: "0.1 * X^2 = 0.3 * X^2 - 0.2 * X^2"

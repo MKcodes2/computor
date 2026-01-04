@@ -3,7 +3,7 @@ import re
 def parse_term(term: str) -> tuple[float, int]:
 	"""
 	Parses a single term to check for the form: <coef>*X^<power> (a * X^p)
-	"Every term respect the form a * X^P" subjects says
+	Every term must respect the form `a * X^P` subjects says
 	Example: "-9.3*X^2"
 	Returns the tuple: (coef: float, power: int)
 	"""
@@ -84,7 +84,7 @@ def parse_side(side: str) -> dict[int, float]:
 def parse_equation(equation: str) -> tuple[dict[int, float], dict[int, float]]:
 	# print("Received equation:", equation)
 
-	equation = equation.strip() #trims unnecessary whitespaces
+	equation = equation.strip() #trims unnecessary whitespaces left and right
 	equation = equation.replace('x', 'X')
 
 	sides = equation.split('=')
@@ -95,7 +95,6 @@ def parse_equation(equation: str) -> tuple[dict[int, float], dict[int, float]]:
 
 	for side in sides:
 		side = side.strip()
-		# print("side:", side, "$")
 		if side == "":
 			raise ValueError("one side is missing from the equation")
 		if "^-" in side:
