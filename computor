@@ -9,7 +9,7 @@ from utils import *
 def main():
 
 	if len(sys.argv) != 2:
-		print("❗️ Program expects input in this format: ./computor \"equation\"")
+		print(color("❗️ Program expects input in this format: ./computor \"equation\"", RED))
 		sys.exit(1)
 
 	try:
