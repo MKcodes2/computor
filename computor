@@ -4,6 +4,7 @@ import sys
 from parser import parse_equation
 from reducer import reduce_polynomial, format_reduced_form
 from solver import solve_polynomial
+from utils import *
 
 def main():
 
@@ -17,7 +18,7 @@ def main():
 		print("Reduced form:", format_reduced_form(reduced_dict))
 		solve_polynomial(reduced_dict) # solver prints degree + solutions/messages
 	except ValueError as e:
-		print(f"Error: {e}", file=sys.stderr)
+		print(color(f"❗️ Error: {e}", RED), file=sys.stderr)
 		sys.exit(1)
 
 # my guard to say "Only run this when this file is the program entry point.”
