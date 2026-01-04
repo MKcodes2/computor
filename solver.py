@@ -35,7 +35,7 @@ def solve_polynomial(poly: dict[int, float]):
 
 		x = -c / b
 		print(color("The solution is:", BLUE))
-		print(color(f"{format_x(x)}", CYAN))
+		print(color(f"{format_x(x)}", GREEN))
 		return
 
 	# for the `ax^2 + bx + c = 0` scenarios, aka "a * X^2 + b * X^1 + c * X^0 = 0"
@@ -55,8 +55,8 @@ def solve_polynomial(poly: dict[int, float]):
 			sqrt_d = sqrt_newton(delta)
 			x1 = (-b + sqrt_d) / (2.0 * a)
 			x2 = (-b - sqrt_d) / (2.0 * a)
-			print(color(f"{format_x(x1)}", CYAN))
-			print(color(f"{format_x(x2)}", CYAN))
+			print(color(f"{format_x(x1)}", GREEN))
+			print(color(f"{format_x(x2)}", GREEN))
 			return
 
 		if abs(delta) <= EPS: # meaning if it's zero ("anything extremely close to 0")
@@ -66,7 +66,7 @@ def solve_polynomial(poly: dict[int, float]):
 				f"{color(', the solution is:', BLUE)}"
 			)
 			x = (-b) / (2.0 * a)
-			print(color(f"{format_x(x)}", CYAN))
+			print(color(f"{format_x(x)}", GREEN))
 			return
 
 		if delta < 0.0:
@@ -82,10 +82,4 @@ def solve_polynomial(poly: dict[int, float]):
 			# prints the two solutions: real_part ± imag_part*i
 			print(color(f"{format_x(real_part)} + {format_x(abs(imag_part))} * i", CYAN))
 			print(color(f"{format_x(real_part)} - {format_x(abs(imag_part))} * i", CYAN))
-
-			#the non-formatted output:
-			# print(f"{real_part} + {abs(imag_part)} * i")
-			# print(f"{real_part} - {abs(imag_part)} * i")
-
-
 
