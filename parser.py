@@ -7,32 +7,32 @@ def parse_term(term: str) -> tuple[float, int]:
 	"""
 	# 0) initial check for empty term or missing characters
 	if term == "" or len(term) < 5:
-		raise ValueError(f"Invalid input.")
+		raise ValueError(f"invalid input format.")
 	# 1) Exactly one '*'
 	if term.count("*") != 1:
-		raise ValueError(f"Invalid term (expected one '*'): {term}")
+		raise ValueError(f"invalid term (expected one '*'): {term}")
 
 	coef_part, var_part = term.split("*")
 	# 2) Parse coefficient
 	try:
 		coef = float(coef_part)
 	except ValueError:
-		raise ValueError(f"Invalid coefficient in term: {term}")
+		raise ValueError(f"invalid coefficient in term: {term}")
 	# 3) Variable must be X^<power>
 	if not var_part.startswith("X^"):
-		raise ValueError(f"Invalid variable format in term: {term}")
+		raise ValueError(f"invalid variable format in term: {term}")
 
 	power_part = var_part[2:]  # everything after the "X^"
 
 	# 4) Power must be a positive integer
 	if power_part == "":
-		raise ValueError(f"Missing exponent in term: {term}")
+		raise ValueError(f"missing exponent in term: {term}")
 	try:
 		power = int(power_part)
 	except ValueError:
-		raise ValueError(f"Invalid exponent in term: {term}")
+		raise ValueError(f"invalid exponent in term: {term}")
 	if power < 0:
-		raise ValueError(f"Negative exponent not allowed: {term}")
+		raise ValueError(f"negative exponent not allowed: {term}")
 
 	return coef, power
 
@@ -66,10 +66,11 @@ def parse_equation(equation: str) -> tuple[dict[int, float], dict[int, float]]:
 	# print("Received equation:", equation)
 
 	equation = equation.strip() #trims unnecessary whitespaces
+	equation = equation.replace('x', 'X')
 
 	sides = equation.split('=')
 	if len(sides) != 2:
-		raise ValueError("Equation must contain exactly one '='.")
+		raise ValueError("not a valid equation form.")
 	
 	side_dicts: list[dict[int, float]] = [] # one list to save the left side dictionary and right side dictionary
 
@@ -77,9 +78,9 @@ def parse_equation(equation: str) -> tuple[dict[int, float], dict[int, float]]:
 		side = side.strip()
 		# print("side:", side, "$")
 		if side == "":
-			raise ValueError("One side is missing from the equation")
+			raise ValueError("one side is missing from the equation")
 		if "^-" in side:
-			raise ValueError("Only positive integer exponents expected")
+			raise ValueError("only positive integer exponents accepted")
 		side_dicts.append(parse_side(side))
 
 	# unpacks explicitly the two dictionaries 
