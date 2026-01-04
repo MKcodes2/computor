@@ -7,7 +7,6 @@ def normalize_poly(poly: dict[int, float]) -> dict[int, float]:
 	and gives wrong degrees. 
 	"""
 	out = poly.copy()
-	EPS = 1e-12
 	for power, coef in out.items():
 		if abs(coef) < EPS:
 			out[power] = 0.0
