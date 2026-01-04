@@ -1,3 +1,5 @@
+import re
+
 def parse_term(term: str) -> tuple[float, int]:
 	"""
 	Parses a single term to check for the form: <coef>*X^<power> (a * X^p)
@@ -37,7 +39,24 @@ def parse_term(term: str) -> tuple[float, int]:
 	return coef, power
 
 
+def validate_no_whitespace_inside_numbers(s: str) -> None:
+	"""
+	Without this function call inputs like `9.3 * X^2 0 =  4  2 * x^1` 
+	were shown as: -42 * X^1 + 9.3 * X^20 = 0 which was wrong
+	"""
+	# digit <whitespace> digit  => would merge into a larger integer
+	if re.search(r'(?<=\d)\s+(?=\d)', s):
+		raise ValueError("invalid input – whitespace inside a number (e.g. '2 0' -> '20').")
+
+	# digit <whitespace> '.'  OR  '.' <whitespace> digit  => would merge into a different float
+	if re.search(r'(?<=\d)\s+(?=\.)', s) or re.search(r'(?<=\.)\s+(?=\d)', s):
+		raise ValueError("invalid input – whitespace inside a decimal number (e.g. '9. 3' or '9 .3').")
+
+
 def parse_side(side: str) -> dict[int, float]:
+
+	validate_no_whitespace_inside_numbers(side)
+
 	# 1) we trim all the spaces:
 	# side = side.replace(" ", "")
 	side = "".join(side.split()) # to remove ALL whitespaces actually
